@@ -48,6 +48,11 @@ namespace import
                     GeocodeResponse responseObject = JsonConvert.DeserializeObject<GeocodeResponse>(
                         response.Content.ReadAsStringAsync().Result);
 
+                    if ( responseObject.Results.Count == 0 )
+                    {
+                        throw new Exception("Unable to geocode address. No results found.");    
+                    }
+
                     sm.Lat = responseObject.Results[0].Geometry.Location.Lat;
                     sm.Lon = responseObject.Results[0].Geometry.Location.Lng;
 
