@@ -4,6 +4,7 @@
     "emitEntryPoint": true
   },
   "dependencies": {
+    "junk": "1.0.0-*",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0-rc2-3002702"
