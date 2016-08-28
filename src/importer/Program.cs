@@ -7,8 +7,8 @@ namespace import
         public static void Main(string[] args)
         {
             var integration = new From()
-                .FromCSV("~/data", "*.csv")
-                .TransformTo<string, string>((s) => s.ToLower())
+                .FromCSV("/Users/uatec/data", "*.csv")
+                .TransformTo<string[], string>((s) => s[3])
                 .TransformTo<string, PriceModel>((s) => new PriceModel { Text = s })
                 .ToElasticSearch("my-index");
 
