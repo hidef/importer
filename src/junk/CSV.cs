@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 
 namespace import 
 {
@@ -40,7 +41,7 @@ namespace import
                 Console.WriteLine($"\tLines: {fileData.Length}");
             }
             
-            string[] fields = fileData[currentLine].Split(',');
+            string[] fields = fileData[currentLine].Split(',').Select(s => s.Trim('"')).ToArray();
             return fields;
         }
 
