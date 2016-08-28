@@ -18,6 +18,11 @@ namespace import
                 catch ( AggregateException ex ) 
                 {
                     Console.WriteLine($"ERROR: {ex.InnerException.GetType().Name} {ex.InnerException.Message}");
+                    Console.WriteLine($"ERROR - 1: {ex.InnerException.InnerException.GetType().Name} {ex.InnerException.InnerException.Message}");
+                }
+                catch ( Exception ex )
+                {
+                    Console.WriteLine($"ERROR: {ex.GetType().Name} {ex.Message}");
                 }
             }
             Console.WriteLine("Done.");
