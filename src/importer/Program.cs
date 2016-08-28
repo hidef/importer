@@ -8,8 +8,11 @@ namespace import
         {
             var integration = new From()
                 .FromCSV("/Users/uatec/data", "*.csv")
-                .TransformTo<string[], string>((s) => s[3])
-                .TransformTo<string, PriceModel>((s) => new PriceModel { Text = s })
+                .TransformTo<string[], SaleModel>((s) => new SaleModel {
+                    Date = DateTime.Parse(s[2].Trim('"')),
+                    Address = s[7] + ", " + s[9] + ", " + s[11]  + ", " + s[12]  + ", " + s[13]  + ", " + s[3],
+                    Price = int.Parse(s[1].Trim('"'))
+                })
                 .ToElasticSearch("my-index");
 
             Console.WriteLine("-----");
