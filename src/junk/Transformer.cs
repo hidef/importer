@@ -32,9 +32,11 @@ namespace import
         public T2 Get()
         {
             T1 data = _predecessor.Get();
+            T2 output = _transformer(data);
 
-            Console.WriteLine($"TRANS_: {data}");
-            return _transformer(data);
+            Console.WriteLine($"TRANS_: {data} => {output}");
+
+            return output;
         }
     }
 }
