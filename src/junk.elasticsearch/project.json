@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "junk": "1.0.0-*",
+    "Newtonsoft.Json": "9.0.1",
     "NEST": "2.4.4",
     "Microsoft.NETCore.App": {
       "type": "platform",
