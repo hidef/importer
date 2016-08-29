@@ -18,12 +18,19 @@ To Do
 
 Phase 1:
 
+- Consume From API
+- GeoCode Addresses
+- Insert in to Elastic Search
+
 ## Junk Road Map
 
 Phase 1:
 
 - Elastic Search Writer
 - HTTP Source
+- File Source
+  - Temporary File/Done File
+  - Line Pointer
 - CSV Parser
 
 Phase 2:
