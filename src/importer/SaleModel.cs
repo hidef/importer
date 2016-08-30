@@ -27,7 +27,7 @@ namespace import
 
         public override string ToString()
         {
-            return (this.Date.ToString("yyyy-MM-dd") + " - " + this.Price.ToString("C", CultureInfo.CurrentCulture) + $" - ({this.Location}) - " + this.Address).Limit(150);
+            return "SaleModel#{ " + (this.Date.ToString("yyyy-MM-dd") + " - " + this.Price.ToString("C", CultureInfo.CurrentCulture) + $" - ({this.Location}) - " + this.Address).Limit(150) + " }";
         }
     }
 }
