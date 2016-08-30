@@ -61,7 +61,7 @@ namespace import
 
                     return sm;
                 })
-                .ToElasticSearch("my-index");
+                .ToElasticSearch(new Uri("http://localhost:9201"), "landregistry");
 
             Console.WriteLine("-----");
 
