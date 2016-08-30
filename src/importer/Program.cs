@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
 using Nest;
@@ -35,7 +33,7 @@ namespace import
             HttpClient httpClient = new HttpClient();
 
             var integration = new From()
-                .FromFileSystem("/Users/uatec/data", "*.csv")
+                .FromResilientFileSystem("/Users/uatec/data", "*.csv")
                 .ParseCSV()
                 .TransformTo<string[], SaleModel>((s) => {
                     var sm = new SaleModel {
@@ -62,10 +60,12 @@ namespace import
                     return sm;
                 })
                 .ToElasticSearch(new Uri("http://localhost:9201"), "landregistry");
-
+                
             Console.WriteLine("-----");
 
-            integration.Run();
+            integration.Run(new Runner.Options {
+                SleepTime = 10
+            });
         }
     }
 

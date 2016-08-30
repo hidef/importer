@@ -1,18 +1,25 @@
 using System;
+using System.Threading;
 
 namespace import
 {
     public static class Runner
     {
-        public static void Run<T>(this Destination<T> destination)
+        public class Options
+        {
+            public int SleepTime { get; set; }
+        }
+
+        public static void Run<T>(this IGenerator<T> integrationChain, Options options)
         {
             Console.WriteLine("Running...");
             int messageCount = 0;
             try
             {
-                foreach ( T output in destination.Get() )
+                foreach ( T output in integrationChain.Get() )
                 {
                     Console.WriteLine($"====== Message Count: {messageCount++}");
+                    Thread.Sleep(options.SleepTime);
                 }
             }
             catch ( AggregateException ex ) 
@@ -22,7 +29,7 @@ namespace import
             }
             catch ( Exception ex )
             {
-                Console.WriteLine($"ERROR: {ex.GetType().Name} {ex.Message}");
+                Console.WriteLine($"ERROR: {ex.GetType().Name} {ex.Message} ");
             }
         }
     }
