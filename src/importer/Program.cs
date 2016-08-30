@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Nest;
 
 namespace import
 {
@@ -34,7 +35,8 @@ namespace import
             HttpClient httpClient = new HttpClient();
 
             var integration = new From()
-                .FromCSV("/Users/uatec/data", "*.csv")
+                .FromFileSystem("/Users/uatec/data", "*.csv")
+                .ParseCSV()
                 .TransformTo<string[], SaleModel>((s) => {
                     var sm = new SaleModel {
                         Id = s[0],

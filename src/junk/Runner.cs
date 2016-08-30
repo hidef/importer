@@ -8,25 +8,22 @@ namespace import
         {
             Console.WriteLine("Running...");
             int messageCount = 0;
-            while ( true ) 
+            try
             {
-                try
+                foreach ( T output in destination.Get() )
                 {
-                    destination.Get();
-                    Console.WriteLine($"Message Count: {messageCount++}");
-                }
-                catch ( AggregateException ex ) 
-                {
-                    Console.WriteLine($"ERROR: {ex.InnerException.GetType().Name} {ex.InnerException.Message}");
-                    Console.WriteLine($"ERROR - 1: {ex.InnerException.InnerException.GetType().Name} {ex.InnerException.InnerException.Message}");
-                }
-                catch ( Exception ex )
-                {
-                    Console.WriteLine($"ERROR: {ex.GetType().Name} {ex.Message}");
+                    Console.WriteLine($"====== Message Count: {messageCount++}");
                 }
             }
-            Console.WriteLine("Done.");
+            catch ( AggregateException ex ) 
+            {
+                Console.WriteLine($"ERROR: {ex.InnerException.GetType().Name} {ex.InnerException.Message}");
+                Console.WriteLine($"ERROR - 1: {ex.InnerException.InnerException.GetType().Name} {ex.InnerException.InnerException.Message}");
+            }
+            catch ( Exception ex )
+            {
+                Console.WriteLine($"ERROR: {ex.GetType().Name} {ex.Message}");
+            }
         }
     }
-    
 }

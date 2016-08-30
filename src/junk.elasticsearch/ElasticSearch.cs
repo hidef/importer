@@ -1,6 +1,7 @@
 using System;
 using Nest;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace import
 {
@@ -40,39 +41,22 @@ namespace import
 
         }
 
-        public T Get()
+        public IEnumerable<T> Get()
         {
-            T data = _predecessor.Get();
-
-            var response = _client.Index(data, idx => idx.Index(_index));
-            Console.WriteLine("Creating document in " + _index);
-
-            if ( !response.Created ) 
+            foreach (T data in _predecessor.Get())
             {
-                throw new Exception($"Creation of ElasticSearch document failed. - {JsonConvert.SerializeObject(response)}");
+                var response = _client.Index(data, idx => idx.Index(_index));
+                Console.WriteLine("Creating document in " + _index);
+
+                if ( !response.Created ) 
+                {
+                    throw new Exception($"Creation of ElasticSearch document failed. - {JsonConvert.SerializeObject(response)}");
+                }
+
+                Console.WriteLine($"OUTPUT: {data} - {JsonConvert.SerializeObject(response)}");
+
+                yield return data;
             }
-
-            Console.WriteLine($"OUTPUT: {data} - {JsonConvert.SerializeObject(response)}");
-
-            return data;
-        }
-    }
-
-    public class DummyDestination<T> : Destination<T>
-    {
-        private readonly Transformation<T> _predecessor;
-        
-        public DummyDestination(Transformation<T> predecessor)
-        {
-            _predecessor = predecessor;
-        }
-
-        public T Get()
-        {
-            T data = _predecessor.Get();
-
-            Console.WriteLine($"OUTPUT: {data}");
-            return data;
         }
     }
 }

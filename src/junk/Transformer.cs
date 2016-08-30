@@ -1,13 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace import
 {
-
-    
     public interface Transformation<T> : IGenerator<T>
     {
     }
-
 
     public static class Transformer
     {
@@ -29,14 +27,16 @@ namespace import
             _transformer = transformer;
         }
 
-        public T2 Get()
+        public IEnumerable<T2> Get()
         {
-            T1 data = _predecessor.Get();
-            T2 output = _transformer(data);
+            foreach (T1 data in _predecessor.Get())
+            {
+                T2 output = _transformer(data);
 
-            Console.WriteLine($"TRANS_: {data} => {output}");
+                Console.WriteLine($"TRANS_: {data} => {output}");
 
-            return output;
+                yield return output;
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace import
 {
     public interface IGenerator<T>
     {
-        T Get();
+        IEnumerable<T> Get();
     }
 }
