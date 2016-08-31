@@ -65,14 +65,23 @@ namespace import
                 // try read pointer
                 pointer = getPointer(file);
                 // do while (!eof)
+                
                 //     readline
-                foreach ( string line in File.ReadLines(file.WorkingFileName))
+                using (var stream = File.OpenRead(file.WorkingFileName))
+                using (var reader = new StreamReader(stream)) 
+                // foreach ( string line in File.(file.WorkingFileName))
                 {
-                    //     save pointer
-                    setPointer(file, pointer + (long) line.Length);
-                    //     return data
-                    yield return line;
-                    // od
+                    stream.Seek(pointer, SeekOrigin.Begin);
+                    while ( !reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        Console.WriteLine("READ: " + line);
+                        //     save pointer
+                        setPointer(file, pointer += (long) line.Length);
+                        //     return data
+                        yield return line;
+                        // od
+                    }
                 }
                 // move it to .done
                 endFile(file);
